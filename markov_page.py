@@ -3,13 +3,21 @@ import requests
 import numpy as np
 import sys
 import random
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 @app.route("/")
-def helloworld():
-    return "<marquee><h1>Hello world!!</h1></marquee>"
+def main_page():
+    return render_template("markov_template.html")
+
+@app.route("/getsentence")
+def getsentence():
+    url = request.args.get('url', '')
+    word = request.args.get('word', '')
+    lines = get_pages_lines(url)
+    return create_sent_from_lines(lines, word)
+
 
 def get_pages_lines(url):
     response = requests.get(url)
@@ -21,7 +29,7 @@ def get_pages_lines(url):
     # lines is now a list of lists of strings 
     return lines
 
-def create_sent_from_lines(lines):
+def create_sent_from_lines(lines, startword):
     words_dict = {} # dict, key: a word, value: dict of next words and their occurrances
     # ex. words_dict["the"] == {"dog" : 2, "man" : 3}
     for line in lines:
@@ -40,7 +48,7 @@ def create_sent_from_lines(lines):
 
     sentence = ""
     length = 0
-    currword = sys.argv[1]
+    currword = startword
     while length < 30:
         sentence += currword + " "
         length += 1

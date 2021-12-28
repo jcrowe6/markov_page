@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<style>
+    #send {
+        background-color: #3385ff; /* Blue */
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 20px;
+    }
+
+    .main {
+        margin: auto;
+        width: 50%;
+        text-align: center;
+    }
+
+    #urlbox {
+        width: 600px;
+        height: 25px;
+        text-align: center;
+        font-size: 16px;
+    }
+    #wordbox {
+        width: 300px;
+        height: 40px;
+        text-align: center;
+        font-size: 33px;
+    }
+    
+</style>
+<div class="main">
+<h2>Markov's Marvellous Chain</h2>
+<p>This is a simple webapp built with Flask and some linear alegbra that showcases Markov Chaining to create 
+    gibberish sentences
+</p>
+<p>
+    Input the URL of a webpage containing some text (100+ words ideally) and a word from the text to start with,
+    and press the button. 
+</p>
+<br><br>
+<input id="urlbox" value="https://en.wikipedia.org/wiki/Main_Page"><br>
+<input id="wordbox" value="the"><br><br>
+<button id="send" onclick="ajax()">Send request</button>
+
+<h1 id="display"></h1>
+</div>
+<script>
+    function ajax() {
+				const http = new XMLHttpRequest();
+				const url = "/getsentence?url=" + document.getElementById("urlbox").value 
+                 + "&word=" + document.getElementById("wordbox").value;
+				http.open("GET", url);
+				http.send();
+				http.onreadystatechange=(e)=>{
+					if (http.readyState == 4) {
+						document.getElementById("display").innerHTML = http.responseText;
+						// console.log(response);
+					}
+				}
+			}
+</script>
