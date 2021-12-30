@@ -3,4 +3,4 @@
 (From wikipedia)
 
 You can use this concept to build somewhat real-looking sentences by creating a model where each "next word" in the sentence only depends on the current word.
-This project presents an interactive, working example of markov chaining. You can find it hosted on [my website](http://http://jcrowell.net/markov/).
+This project presents an interactive, working example of markov chaining. You can find it hosted on [my website](http://jcrowell.net/markov/).
