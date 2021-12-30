@@ -1,2 +1,0 @@
-#!/bin/bash
-FLASK_APP=markov_page.py flask run
